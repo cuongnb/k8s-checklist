@@ -1,36 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cmsapp
+  name: cmsweb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cmsapp
+      app: cmsweb
   revisionHistoryLimit: 2
   template:
     metadata:
       labels:
-        app: cmsapp
+        app: cmsweb
     spec:
       containers:
       - name: adsfrontend
         image: vda/adtech_frontend
         imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
         ports:
-        - containerPort: 80
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cmsapp
+  name: cmsweb
   labels:
-    app: cmsapp
+    app: cmsweb
 spec:
   type: NodePort
   ports:
     - name: adsfrontend
       port: 3000
-      # targetPort: 80
+      targetPort: 3000
+      nodePort: 30007
   selector:
-    app: cmsapp
+    app: cmsweb
