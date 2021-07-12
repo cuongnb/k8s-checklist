@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmsscoket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cmsscoket
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: cmsscoket
+    spec:
+      containers:
+      - name: adssocket
+        image: vda/adtech_socket
+        imagePullPolicy: Never
+        resources: {}
+        ports:
+        - containerPort: 6001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmsscoket
+  labels:
+    app: cmsscoket
+spec:
+  type: NodePort
+  ports:
+    - name: adssocket
+      port: 6001
+      targetPort: 6001
+      nodePort: 30009
+  selector:
+    app: cmsscoket
