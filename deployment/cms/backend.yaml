@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmsappbe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cmsappbe
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: cmsappbe
+    spec:
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+      containers:
+        - image: vda/adtech_backend
+          imagePullPolicy: Never
+          name: appbackend
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html && chown -R www-data:www-data /var/www/html"]              
+        - image: nginx:1.7.9
+          name: nginxbackend
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmsappbe
+  labels:
+    app: cmsappbe
+spec:
+  type: NodePort
+  ports:
+    - name: nginxbackend
+      port: 80
+      targetPort: 80
+      nodePort: 30008
+  selector:
+    app: cmsappbe

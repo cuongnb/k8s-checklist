@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmsapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cmsapp
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: cmsapp
+    spec:
+      containers:
+      - name: adsfrontend
+        image: vda/adtech_frontend
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cmsapp
+  labels:
+    app: cmsapp
+spec:
+  type: NodePort
+  ports:
+    - name: adsfrontend
+      port: 3000
+      # targetPort: 80
+  selector:
+    app: cmsapp
