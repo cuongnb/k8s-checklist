@@ -76,15 +76,27 @@ metadata:
   name: prometheus-alertmanager
   namespace: metrics
 data:
-  alertmanager.yml: |
-    global: {}
+  alertmanager.yml: |           # cái đoạn này để config webhook đẩy alert ra
+    global: {}                  # https://prometheus.io/docs/alerting/latest/notification_examples/
     receivers:
     - name: default-receiver
+    # receivers:
+    # - name: "webhook"
+    #   webhook_configs:
+    #   - url: http://webhook.default/hooks/prometheus-alert
+    #     send_resolved: true
+
+      # Vis dụ cty config bằng webhook
     route:
       group_interval: 5m
       group_wait: 10s
       receiver: default-receiver
       repeat_interval: 3h
+      # routes:
+      # - match:
+      #     alertname: Watchdog
+      #   receiver: "webhook"
+
 ---
 # Source: prometheus/templates/server/cm.yaml
 apiVersion: v1
@@ -99,8 +111,75 @@ metadata:
   name: prometheus-server
   namespace: metrics
 data:
-  alerting_rules.yml: |
-    {}
+  alerting_rules.yml: |         # đoạn này mình sẽ cài alert ở đây
+    groups:
+    - name: cadvisor            # Day laf 1 group alert
+      rules:
+      - alert: ContainerKilled  # day la 1 alert
+        expr: time() - container_last_seen > 60 # dieu kien day
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container killed (instance {{ $labels.instance }})"
+          description: "A container has disappeared\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      - alert: kube_pod_container_status_waiting # day la 1 alert
+        expr: kube_pod_container_status_waiting_reason > 0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.reason }}: {{ $labels.pod }}"
+          description: "{{ $labels.reason }}: {{ $labels.pod }} on {{ $labels.kubernetes_node }}"
+      - alert: kube_pod_init_container_status_waiting
+        expr: kube_pod_init_container_status_waiting_reason > 0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.reason }}: {{ $labels.pod }}:{{ $labels.container }}"
+          description: "{{ $labels.reason }}: {{ $labels.pod }}:{{ $labels.container }} on {{ $labels.kubernetes_node }}"
+
+    - name: Instances           # Group nay cho instance
+      rules:
+      - alert: InstanceDown     # Chet?
+        annotations:
+          description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+          summary: Instance {{ $labels.instance }} down
+        expr: up{job="kubernetes-nodes"} == 0
+        for: 5m
+        labels:
+          severity: page
+
+    - name: node-exporter       # Group khac
+      rules:
+      - alert: OutOfMemory      # het mem
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10 # bieu thuc nay chay o prometheus
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Out of memory (instance {{ $labels.instance }})"
+          description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+      - alert: OutOfDiskSpace
+        expr: node_filesystem_free_bytes{mountpoint ="/"} / node_filesystem_size_bytes{mountpoint ="/"} * 100 < 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Out of disk space (instance {{ $labels.instance }})"
+          description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+      - alert: HighCpuLoad
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) >95
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU load (instance {{ $labels.instance }})"
+          description: "CPU load is > 95%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
   alerts: |
     {}
   prometheus.yml: |
