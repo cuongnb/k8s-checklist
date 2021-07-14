@@ -1,0 +1,5 @@
+resources:
+- backend.yaml
+- configmap.yaml
+- frontend.yaml
+- socket.yaml

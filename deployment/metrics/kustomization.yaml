@@ -1,0 +1,4 @@
+resources:
+- grafana-dashboard.yaml
+- grafana.yaml
+- prometheus.yaml
