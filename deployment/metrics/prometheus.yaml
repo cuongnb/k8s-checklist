@@ -488,6 +488,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
       storage: "2Gi"
@@ -507,6 +508,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
       storage: "8Gi"
@@ -1067,6 +1069,8 @@ spec:
 
         imagePullPolicy: IfNotPresent
         image: "quay.io/coreos/kube-state-metrics:v1.9.7"
+        resources:
+          {}
         ports:
         - containerPort: 8080
         livenessProbe:
