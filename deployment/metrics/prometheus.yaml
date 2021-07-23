@@ -1247,6 +1247,9 @@ spec:
             successThreshold: 1
           resources:
             {}
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh            
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

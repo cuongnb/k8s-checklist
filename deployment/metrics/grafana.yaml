@@ -354,7 +354,6 @@ spec:
           args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh /etc/grafana/download_dashboards.sh" ]
           resources:
             {}
-          env:
           volumeMounts:
             - name: config
               mountPath: "/etc/grafana/download_dashboards.sh"
@@ -394,6 +393,8 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:
@@ -487,6 +488,8 @@ spec:
       image: "bats/bats:v1.1.0"
       imagePullPolicy: "IfNotPresent"
       command: ["/opt/bats/bin/bats", "-t", "/tests/run.sh"]
+      resources:
+        {}
       volumeMounts:
         - mountPath: /tests
           name: tests

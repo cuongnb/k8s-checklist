@@ -1,0 +1,47 @@
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: vda
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vdadistributor
+  namespace: vda
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vdadistributor
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: vdadistributor
+    spec:
+      containers:
+      - name: vdadistributor
+        image: ads/distributor
+        imagePullPolicy: Never
+        resources:
+          {}
+        ports:
+        - containerPort: 8002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vdadistributor
+  labels:
+    app: vdadistributor
+  namespace: vda
+spec:
+  type: NodePort
+  ports:
+    - name: vdadistributor
+      port: 8002
+      targetPort: 8002
+      nodePort: 30010
+  selector:
+    app: vdadistributor

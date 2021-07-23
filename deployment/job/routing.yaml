@@ -1,0 +1,28 @@
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: vda-data-routing
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vdadatarouting
+  namespace: vda
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vdadatarouting
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: vdadatarouting
+    spec:
+      containers:
+      - name: vdadatarouting
+        image: ads/data_routing
+        imagePullPolicy: Never
+        resources:
+          {}

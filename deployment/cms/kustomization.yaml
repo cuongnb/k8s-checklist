@@ -1,4 +1,5 @@
 resources:
+- vda-business-namespace.yaml
 - backend.yaml
 - configmap.yaml
 - frontend.yaml

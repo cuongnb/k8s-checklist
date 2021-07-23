@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vda-ingress
+  namespace: vda
+spec:
+  rules:
+  - host: app.vda
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cmsapp
+          servicePort: 30008
+  - host: web.vda
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cmsweb
+          servicePort: 30007
+  - host: socket.vda
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cmsscoket
+          servicePort: 30009

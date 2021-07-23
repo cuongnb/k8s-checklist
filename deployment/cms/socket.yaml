@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cmsscoket
+  namespace: vda
 spec:
   replicas: 1
   selector:
@@ -27,6 +28,7 @@ metadata:
   name: cmsscoket
   labels:
     app: cmsscoket
+  namespace: vda
 spec:
   type: NodePort
   ports:

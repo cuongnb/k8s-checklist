@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cmsapp
+  namespace: vda
 spec:
   replicas: 1
   selector:
@@ -47,6 +48,7 @@ metadata:
   name: cmsapp
   labels:
     app: cmsapp
+  namespace: vda
 spec:
   type: NodePort
   ports:

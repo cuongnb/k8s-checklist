@@ -1,0 +1,5 @@
+resources:
+- computing.yaml
+- distribution.yaml
+- logcapture.yaml
+- routing.yaml

@@ -3,6 +3,6 @@ resources:
 # - es-service.yaml
 # - es-statefulset.yaml
 - fluentd-es-configmap.yaml
-- fluentd-es-ds.yaml
+- fluentd-es-ds-v3.yaml
 - kibana-deployment.yaml
 - kibana-service.yaml

@@ -1,0 +1,28 @@
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: vda
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vdacomputing
+  namespace: vda
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vdacomputing
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: vdacomputing
+    spec:
+      containers:
+      - name: vdacomputing
+        image: ads/ads_computing
+        imagePullPolicy: Never
+        resources:
+          {}

@@ -71,6 +71,8 @@ spec:
       - name: fluentd-es
         image: quay.io/fluentd_elasticsearch/fluentd:v3.1.0
         env:
+        - name: TZ
+          value: Asia/Ho_Chi_Minh
         - name: FLUENTD_ARGS
           value: --no-supervisor -q
         resources:

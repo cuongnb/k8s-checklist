@@ -1,1 +1,1 @@
-scp -r deployment centos@ads-m1:/home/centos
+scp -r deployment centos@master:/home/centos
