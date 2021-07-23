@@ -922,6 +922,9 @@ spec:
               hostPort: 9100
           resources:
             {}
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
           volumeMounts:
             - name: proc
               mountPath: /host/proc
@@ -1071,6 +1074,9 @@ spec:
         image: "quay.io/coreos/kube-state-metrics:v1.9.7"
         resources:
           {}
+        env:
+          - name: TZ
+            value: Asia/Ho_Chi_Minh
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -1120,6 +1126,8 @@ spec:
           image: "quay.io/prometheus/alertmanager:v0.21.0"
           imagePullPolicy: "IfNotPresent"
           env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
             - name: POD_IP
               valueFrom:
                 fieldRef:
@@ -1149,6 +1157,9 @@ spec:
               subPath: ""
         - name: prometheus-alertmanager-configmap-reload
           image: "jimmidyson/configmap-reload:v0.5.0"
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
           imagePullPolicy: "IfNotPresent"
           args:
             - --volume-dir=/etc/config
@@ -1210,6 +1221,9 @@ spec:
             - --webhook-url=http://127.0.0.1:9090/-/reload
           resources:
             {}
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
