@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vda
+  name: vda-logcapture
   namespace: vda-logcapture
   annotations:
     # use the shared ingress-nginx
