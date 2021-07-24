@@ -1,14 +1,14 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: vda-data-routing
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vda-data-routing
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vdadatarouting
-  namespace: vda
+  namespace: vda-data-routing
 spec:
   replicas: 1
   selector:

@@ -1,14 +1,14 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: vda-logcapture
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vda-logcapture
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vdalogcapture
-  namespace: vda
+  namespace: vda-logcapture
 spec:
   replicas: 2
   selector:
@@ -35,7 +35,7 @@ metadata:
   name: vdalogcapture
   labels:
     app: vdalogcapture
-  namespace: vda
+  namespace: vda-logcapture
 spec:
   type: NodePort
   ports:

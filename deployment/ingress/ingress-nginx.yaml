@@ -265,7 +265,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/component: controller
-  replicas: 1
   revisionHistoryLimit: 10
   minReadySeconds: 0
   template:

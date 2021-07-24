@@ -1,14 +1,14 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: vda
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vda-distribution
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vdadistributor
-  namespace: vda
+  namespace: vda-distribution
 spec:
   replicas: 2
   selector:
@@ -35,7 +35,7 @@ metadata:
   name: vdadistributor
   labels:
     app: vdadistributor
-  namespace: vda
+  namespace: vda-distribution
 spec:
   type: NodePort
   ports:

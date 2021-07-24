@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cmsweb
-  namespace: vda
+  namespace: vda-business
 spec:
   replicas: 1
   selector:
@@ -29,7 +29,7 @@ metadata:
   name: cmsweb
   labels:
     app: cmsweb
-  namespace: vda
+  namespace: vda-business
 spec:
   type: NodePort
   ports:
