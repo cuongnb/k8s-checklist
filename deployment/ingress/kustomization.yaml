@@ -1,8 +1,6 @@
 resources:
-- ns-and-sa.yaml
-- rbac.yaml
-- default-server-secret.yaml
-- nginx-config.yaml
-- ingress-class.yaml
-- crds/k8s.nginx.org_globalconfigurations.yaml
-- nginx-ingress.yaml
+- namespace.yaml
+- ingress-nginx.yaml
+# - ingress-nginx-webhook.yaml
+- vda-app.yaml
+- ingress-app.yaml

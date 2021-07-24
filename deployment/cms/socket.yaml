@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cmsscoket
+  name: cmssocket
   namespace: vda
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cmsscoket
+      app: cmssocket
   revisionHistoryLimit: 2
   template:
     metadata:
       labels:
-        app: cmsscoket
+        app: cmssocket
     spec:
       containers:
       - name: adssocket
@@ -25,9 +25,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cmsscoket
+  name: cmssocket
   labels:
-    app: cmsscoket
+    app: cmssocket
   namespace: vda
 spec:
   type: NodePort
@@ -37,4 +37,4 @@ spec:
       targetPort: 6001
       nodePort: 30009
   selector:
-    app: cmsscoket
+    app: cmssocket
