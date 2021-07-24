@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vda-bussiness
-  namespace: vda-bussiness
+  name: vda-business
+  namespace: vda-business
   annotations:
     # use the shared ingress-nginx
     kubernetes.io/ingress.class: "nginx"
