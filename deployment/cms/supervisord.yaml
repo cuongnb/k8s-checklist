@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmssupervisord
+  namespace: vda-business
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cmssupervisord
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: cmssupervisord
+    spec:
+      containers:
+      - args:
+          - /usr/bin/supervisord
+          - -c
+          - /etc/supervisor/conf.d/supervisord.conf
+        env:
+        - name: TZ
+          value: Asia/Ho_Chi_Minh
+        image: vda/adtech_backend
+        imagePullPolicy: Never
+        name: cms-supervisord
+        resources: {}
+        tty: true
+        workingDir: /app
+      restartPolicy: Always
