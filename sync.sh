@@ -1,1 +1,1 @@
-scp -r deployment centos@master:/home/centos
+scp -r deployment centos@master2:/home/centos/uploads

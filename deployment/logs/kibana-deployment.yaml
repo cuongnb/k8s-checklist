@@ -32,7 +32,7 @@ spec:
           - name: TZ
             value: Asia/Ho_Chi_Minh
           - name: ELASTICSEARCH_URL
-            value: http://54.179.204.242:9200
+            value: http://10.207.58.15242:9200
           # - name: SERVER_BASEPATH
           #   value: /api/v1/namespaces/kube-system/services/kibana-logging/proxy
         ports:

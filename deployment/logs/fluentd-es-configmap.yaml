@@ -362,7 +362,7 @@ data:
       @log_level info
       type_name _doc
       include_tag_key true
-      host 54.179.204.242
+      host 10.207.58.15
       port 9200
       logstash_format true
       <buffer>

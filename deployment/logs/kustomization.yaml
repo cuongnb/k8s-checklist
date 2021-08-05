@@ -4,5 +4,5 @@ resources:
 # - es-statefulset.yaml
 - fluentd-es-configmap.yaml
 - fluentd-es-ds-v3.yaml
-- kibana-deployment.yaml
+- kibana-deployment-v7.yaml
 - kibana-service.yaml

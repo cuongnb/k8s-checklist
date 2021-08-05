@@ -20,9 +20,33 @@ spec:
       labels:
         app: vdadatarouting
     spec:
+      hostAliases:
+      - ip: "10.207.58.21"
+        hostnames:
+        - "vda-kafka-01"
+      - ip: "10.207.58.22"
+        hostnames:
+        - "vda-kafka-02"
+      - ip: "10.207.58.23"
+        hostnames:
+        - "vda-kafka-03"
+      - ip: "10.254.157.187"
+        hostnames:
+        - "vda-mongo-01"
+      - ip: "10.254.157.188"
+        hostnames:
+        - "vda-mongo-02"
+      - ip: "10.254.157.189"
+        hostnames:
+        - "vda-mongo-03"    
       containers:
       - name: vdadatarouting
-        image: ads/data_routing
+        image: vda/data_routing
         imagePullPolicy: Never
+        env:
+        - name: TZ
+          value: Asia/Ho_Chi_Minh
+        - name: JAVA_ARGS
+          value: -Dspring.profiles.active=prod        
         resources:
           {}

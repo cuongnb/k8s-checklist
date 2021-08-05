@@ -29,14 +29,16 @@ spec:
             requests:
               cpu: 100m
           env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
             - name: ELASTICSEARCH_HOSTS
-              value: http://54.179.204.242:9200
-            - name: SERVER_NAME
-              value: kibana-logging
-            - name: SERVER_BASEPATH
-              value: /api/v1/namespaces/logging/services/kibana-logging/proxy
-            - name: SERVER_REWRITEBASEPATH
-              value: "false"
+              value: http://10.207.58.15:9200
+            # - name: SERVER_NAME
+            #   value: kibana-logging
+            # - name: SERVER_BASEPATH
+            #   value: /api/v1/namespaces/logging/services/kibana-logging/proxy
+            # - name: SERVER_REWRITEBASEPATH
+            #   value: "false"
           ports:
             - containerPort: 5601
               name: ui
