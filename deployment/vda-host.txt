@@ -1,0 +1,13 @@
+- web CMS -> web : vda.viettel.vn
+
+- backend cho web CMS: cms.vda.viettel.vn
+
+- module socket: socket.vda.viettel.vn
+
+- module phân phối quảng cáo: delivery.vda.viettel.vn
+
+- module hứng log người dùng: log.vda.viettel.vn
+
+- CDN: cdn1.vda.viettel.vn
+
+- Mail Server: mail.vda.viettel.vn

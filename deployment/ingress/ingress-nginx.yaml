@@ -290,6 +290,8 @@ spec:
             - --election-id=ingress-controller-leader
             - --ingress-class=nginx
             - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
+            - --http-port=81
+            - --https-port=444
           securityContext:
             capabilities:
                 drop:
@@ -333,11 +335,11 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-              hostPort: 81
+              hostPort: 80
             - name: https
               containerPort: 443
               protocol: TCP
-              hostPort: 444
+              hostPort: 443
           resources: 
             requests:
               cpu: 100m
