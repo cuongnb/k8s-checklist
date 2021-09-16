@@ -909,7 +909,7 @@ spec:
       serviceAccountName: prometheus-node-exporter
       containers:
         - name: prometheus-node-exporter
-          image: "quay.io/prometheus/node-exporter:v1.0.1"
+          image: "10.207.58.2:5000/quay.io/prometheus/node-exporter:v1.0.1"
           imagePullPolicy: "IfNotPresent"
           args:
             - --path.procfs=/host/proc
@@ -1068,7 +1068,7 @@ spec:
 
 
         imagePullPolicy: IfNotPresent
-        image: "quay.io/coreos/kube-state-metrics:v1.9.7"
+        image: "10.207.58.2:5000/quay.io/coreos/kube-state-metrics:v1.9.7"
         resources:
           {}
         ports:
@@ -1117,7 +1117,7 @@ spec:
       serviceAccountName: prometheus-alertmanager
       containers:
         - name: prometheus-alertmanager
-          image: "quay.io/prometheus/alertmanager:v0.21.0"
+          image: "10.207.58.2:5000/quay.io/prometheus/alertmanager:v0.21.0"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: POD_IP
@@ -1148,7 +1148,7 @@ spec:
               mountPath: "/data"
               subPath: ""
         - name: prometheus-alertmanager-configmap-reload
-          image: "jimmidyson/configmap-reload:v0.5.0"
+          image: "10.207.58.2:5000/jimmidyson/configmap-reload:v0.5.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - --volume-dir=/etc/config
@@ -1203,7 +1203,7 @@ spec:
       serviceAccountName: prometheus-server
       containers:
         - name: prometheus-server-configmap-reload
-          image: "jimmidyson/configmap-reload:v0.5.0"
+          image: "10.207.58.2:5000/jimmidyson/configmap-reload:v0.5.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - --volume-dir=/etc/config
@@ -1216,7 +1216,7 @@ spec:
               readOnly: true
 
         - name: prometheus-server
-          image: "quay.io/prometheus/prometheus:v2.24.0"
+          image: "10.207.58.2:5000/quay.io/prometheus/prometheus:v2.24.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - --storage.tsdb.retention.time=15d

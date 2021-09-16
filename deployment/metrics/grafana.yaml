@@ -348,7 +348,7 @@ spec:
         runAsUser: 472
       initContainers:
         - name: download-dashboards
-          image: "curlimages/curl:7.73.0"
+          image: "10.207.58.2:5000/curlimages/curl:7.73.0"
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh"]
           args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh /etc/grafana/download_dashboards.sh" ]
@@ -363,7 +363,7 @@ spec:
               mountPath: "/var/lib/grafana"
       containers:
         - name: grafana
-          image: "grafana/grafana:8.0.1"
+          image: "10.207.58.2:5000/grafana/grafana:8.0.1"
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config
@@ -484,7 +484,7 @@ spec:
   serviceAccountName: grafana-test
   containers:
     - name: test
-      image: "bats/bats:v1.1.0"
+      image: "10.207.58.2:5000/bats/bats:v1.1.0"
       imagePullPolicy: "IfNotPresent"
       command: ["/opt/bats/bin/bats", "-t", "/tests/run.sh"]
       volumeMounts:
